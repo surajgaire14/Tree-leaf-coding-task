@@ -6,10 +6,12 @@ const {
   createUser,
   getAllUser,
   getUserById,
+  deleteUserById,
 } = require("../controllers/UserController");
 
 UserRouter.get("/", getAllUser)
   .post("/create",upload.single("profilePicture"), createUser)
-  .get("/:id", getUserById);
+  .get("/:id", getUserById)
+  .delete("/:id",deleteUserById)
 
 module.exports = { UserRouter };

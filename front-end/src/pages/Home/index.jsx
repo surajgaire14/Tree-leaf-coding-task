@@ -9,6 +9,7 @@ const Home = () => {
     formState: { errors },
   } = useForm();
   const [country, setCountry] = React.useState([]);
+  const [users, setUsers] = React.useState([]);
   const [file, setFile] = React.useState(null);
 
   React.useEffect(() => {
@@ -18,6 +19,15 @@ const Home = () => {
       setCountry(data);
     }
     getCountries();
+  }, []);
+
+  React.useEffect(() => {
+    async function getUsers() {
+      const res = await fetch("http://localhost:5000/api/user");
+      const data = await res.json();
+      setUsers(data);
+    }
+    getUsers();
   }, []);
 
   const handleFileChange = (e) => {
@@ -82,6 +92,17 @@ const Home = () => {
     },
   ];
 
+  const handleUserDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/user/${id}`);
+      setUsers((currentItems) =>
+        currentItems.filter((item) => item._id !== id)
+      );
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
   return (
     <div>
       <h1 className=" text-center py-4">
@@ -98,6 +119,11 @@ const Home = () => {
           {...register("name", { required: "name is a required field" })}
           placeholder="Name"
         />
+        {errors.name ? (
+          <span className=" text-error">
+            <em>{errors.name.message}</em>{" "}
+          </span>
+        ) : null}
         <label htmlFor="email">Email:</label>
         <input
           id="email"
@@ -111,7 +137,9 @@ const Home = () => {
           })}
           placeholder="Email"
         />
-        {errors.email ? <span>{errors.email.message}</span> : null }
+        {errors.email ? (
+          <span className=" text-error">{errors.email.message}</span>
+        ) : null}
         <label htmlFor="phone_number">Phone number:</label>
         <input
           id="phone_number"
@@ -121,6 +149,9 @@ const Home = () => {
           })}
           placeholder="Name"
         />
+        {errors.phone_no ? (
+          <span className=" text-error">{errors.phone_no.message}</span>
+        ) : null}
         <label htmlFor="email">DOB:</label>
         <input
           id="email"
@@ -162,9 +193,53 @@ const Home = () => {
           name="profilePicture"
           onChange={handleFileChange}
           id="profile"
+          accept="image/png"
         />
         <button type="submit">Submit</button>
       </form>
+
+      <div className=" max-w-[1000px] m-auto py-3">
+        <h1>Users list</h1>
+        <table className=" table-auto w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+          <thead className="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th>Profile Picture</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone Number</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((user) => {
+              return (
+                <tr
+                  key={user._id}
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                >
+                  <td>
+                    <img src={user.profilePicture} alt="" />
+                  </td>
+                  <td>{user.name}</td>
+                  <td>{user.email}</td>
+                  <td>{user.phone_no}</td>
+                  <td className="flex gap-2 py-3">
+                    <button
+                      onClick={() => handleUserDelete(user._id)}
+                      className=" bg-error"
+                    >
+                      <i className="ri-delete-bin-4-line"></i>
+                    </button>
+                    <button>
+                      <i className="ri-edit-2-line"></i>
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

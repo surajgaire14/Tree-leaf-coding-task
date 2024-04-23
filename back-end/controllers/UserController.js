@@ -46,7 +46,7 @@ const getUserById = async (req,res) => {
     }
 }
 
-const deleteUserById = async () => {
+const deleteUserById = async (req,res) => {
     try {
         const { id } =  req.params
         const user = await User.findByIdAndDelete(id)

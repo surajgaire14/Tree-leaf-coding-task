@@ -1,6 +1,8 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Layout from "./Layout/layout";
 import Home from "./pages/Home";
+import "remixicon/fonts/remixicon.css";
+import Profiles from "./pages/Profiles";
 
 const router = createBrowserRouter([
   {
@@ -9,6 +11,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/profiles",
+        element: <Profiles />,
       },
     ],
   },
