@@ -33,7 +33,7 @@ const Form = ({ mode }) => {
   React.useEffect(() => {
     if (mode == "edit") {
       axios
-        .get(`http://localhost:5000/api/user/${id}`)
+        .get(`${import.meta.env.APP_URL}/api/user/${id}`)
         .then((response) => {
           console.log(response);
           const fields = ["name", "email", "phone_no", "DOB"];
@@ -64,7 +64,7 @@ const Form = ({ mode }) => {
       }
     });
 
-    const url = `http://localhost:5000/api/user/${
+    const url = `${import.meta.env.APP_URL}/api/user/${
       mode === "edit" ? "update/" + id : "create"
     }`;
     const method = mode === "edit" ? "put" : "post";
@@ -78,7 +78,6 @@ const Form = ({ mode }) => {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log(res);
       if (res.status === 200) {
         navigate("/users");
       }
