@@ -7,7 +7,8 @@ const Navbar = () => {
       <h1 className=" cursor-pointer" onClick={() => navigate("/")}>
         Logo
       </h1>
-      <div>
+      <div className="flex gap-4">
+        <Link to={"/users"}>Users</Link>
         <Link to={"/profiles"}>Profiles</Link>
       </div>
     </div>

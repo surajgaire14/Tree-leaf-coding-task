@@ -5,6 +5,7 @@ const { connection } = require("./config/db");
 const dotenv = require("dotenv");
 const { UserRouter } = require("./Routers/User");
 const morgan = require("morgan");
+const path = require("path")
 dotenv.config();
 connection();
 
@@ -14,7 +15,7 @@ app
   .use(
     cors({
       methods: ["GET", "POST", "PUT", "DELETE"],
-      origin: "http://localhost:5173",
+      origin: "https://tree-leaf-coding-task.onrender.com",
     })
   )
   .use(express.json())
@@ -23,7 +24,18 @@ app
     return res.json("Welcome to tree leaf api")
   })
   .use("/api/user", UserRouter)
-  .use(express.static(__dirname + "/uploads"))
+  .use("/uploads",express.static(__dirname + "uploads"))
+  .use("/uploads/:filename",(req,res) => {
+    const filePath = path.join(__dirname, "uploads",req.params.filename)
+    res.sendFile(filePath, (err) => {
+      if (err) {
+          console.log('Error sending file:', err);
+          if (!res.headersSent) {
+              res.status(404).send("File not found");
+          }
+      }
+  });
+  })
   .get("*",(req,res) => {
     return res.send("Sorry,Route not found")
   })
