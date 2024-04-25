@@ -24,7 +24,7 @@ app
     return res.json("Welcome to tree leaf api")
   })
   .use("/api/user", UserRouter)
-  .use("/uploads",express.static("uploads"))
+  .use(express.static(path.join(__dirname,"uploads")))
   // .use("/uploads/:filename",(req,res) => {
   //   const baseUrl = process.env.APP_URL; 
   //   // console.log(req.params.filename)
@@ -42,6 +42,8 @@ app
   .get("*",(req,res) => {
     return res.send("Sorry,Route not found")
   })
+
+
 
 app.listen(port, () => {
   console.log(`server running on port : ${port}`);
