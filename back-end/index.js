@@ -12,7 +12,7 @@ connection();
 const port = process.env.PORT || 5000;
 
 const corsOptions = {
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE", 
   origin: "https://tree-leaf-coding-task.vercel.app",
   optionsSuccessStatus:200,
 }
@@ -27,7 +27,7 @@ app
     return res.json("Welcome to tree leaf api")
   })
   .options("/api/user",cors()) //enable preflight request
-  .use("/api/user",  cors(corsOptions) , UserRouter)
+  .use("/api/user" , UserRouter)
   .use(express.static(path.join(__dirname,"uploads")))
   // .use("/uploads/:filename",(req,res) => {
   //   const baseUrl = process.env.APP_URL; 
