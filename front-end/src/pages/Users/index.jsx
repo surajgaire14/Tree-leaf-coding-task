@@ -19,16 +19,16 @@ const Users = () => {
 
   React.useEffect(() => {
     async function getUsers() {
-      const res = await fetch("http://localhost:5000/api/user");
+      const res = await fetch(`${import.meta.env.VITE_APP_URL}/api/user`);
       const data = await res.json();
       setUsers(data);
     }
     getUsers();
   }, []);
-
+  console.log(import.meta.env.VITE_APP_URL);
   const handleUserDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/user/${id}`);
+      await axios.delete(`${import.meta.env.VITE_APP_URL}}/api/user/${id}`);
       setUsers((currentItems) =>
         currentItems.filter((item) => item._id !== id)
       );
