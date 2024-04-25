@@ -24,7 +24,7 @@ app
     return res.json("Welcome to tree leaf api")
   })
   .use("/api/user", UserRouter)
-  .use("/uploads",express.static(__dirname + "uploads"))
+  .use("/uploads",express.static("uploads"))
   // .use("/uploads/:filename",(req,res) => {
   //   const baseUrl = process.env.APP_URL; 
   //   // console.log(req.params.filename)
