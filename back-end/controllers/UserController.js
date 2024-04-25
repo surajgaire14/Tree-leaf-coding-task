@@ -8,7 +8,7 @@ const createUser = async (req, res) => {
     const fileName = req.file.filename;
     const encodedFilename = encodeURIComponent(fileName);
     console.log(encodedFilename);
-    console.log(process.env.APP_URL + "/uploads/" + encodedFilename)
+    let imageUrl = process.env.APP_URL + "/uploads/" + encodedFilename
 
     const { name, email, phone_no, DOB, address } = req.body;
     const newAddress = new Address({
@@ -24,7 +24,7 @@ const createUser = async (req, res) => {
       phone_no,
       DOB,
       address: savedAddress._id,
-      profilePicture: process.env.APP_URL + "uploads/" + encodedFilename,
+      profilePicture: imageUrl
     });
     const data = await user.save();
     return res.json(data);
