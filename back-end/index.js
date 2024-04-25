@@ -11,19 +11,23 @@ connection();
 
 const port = process.env.PORT || 5000;
 
+const corsOptions = {
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  origin: ["https://tree-leaf-coding-task.onrender.com","http://localhost:5173"],
+  optionsSuccessStatus:200,
+}
+
 app
   .use(
-    cors({
-      methods: ["GET", "POST", "PUT", "DELETE"],
-      origin: ["https://tree-leaf-coding-task.onrender.com","http://localhost:5173"],
-    })
+    cors(corsOptions)
   )
   .use(express.json())
   .use(morgan("dev"))
   .get("/",(req,res) => {
     return res.json("Welcome to tree leaf api")
   })
-  .use("/api/user", UserRouter)
+  .options("/api/user",cors()) //enable preflight request
+  .use("/api/user",  cors(corsOptions) , UserRouter)
   .use(express.static(path.join(__dirname,"uploads")))
   // .use("/uploads/:filename",(req,res) => {
   //   const baseUrl = process.env.APP_URL; 
