@@ -13,7 +13,7 @@ const port = process.env.PORT || 5000;
 
 const corsOptions = {
   methods: ["GET", "POST", "PUT", "DELETE"],
-  origin: ["https://tree-leaf-coding-task.onrender.com","http://localhost:5173"],
+  origin: "*"
   optionsSuccessStatus:200,
 }
 
