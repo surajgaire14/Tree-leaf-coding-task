@@ -26,7 +26,8 @@ app
   .use("/api/user", UserRouter)
   .use("/uploads",express.static(__dirname + "uploads"))
   .use("/uploads/:filename",(req,res) => {
-    const filePath = path.join(process.env.APP_URL, "uploads",req.params.filename)
+    const baseUrl = process.env.APP_URL; 
+    const filePath = new URL(`/uploads/${encodeURIComponent(req.params.filename)}`,baseUrl.toString())
     res.sendFile(filePath, (err) => {
       if (err) {
           console.log('Error sending file:', err);
