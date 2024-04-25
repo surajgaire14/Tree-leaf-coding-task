@@ -66,7 +66,7 @@ const Form = ({ mode }) => {
       }
     });
 
-    const url = `${import.meta.env.VITE_APP_URL}/api/user/${
+    const url = `/api/user/${
       mode === "edit" ? "update/" + id : "create"
     }`;
     console.log(url);
