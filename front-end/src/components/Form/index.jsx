@@ -34,7 +34,7 @@ const Form = ({ mode }) => {
   React.useEffect(() => {
     if (mode == "edit") {
       axios
-        .get(`${import.meta.env.APP_URL}/api/user/${id}`)
+        .get(`${import.meta.env.VITE_APP_URL}/api/user/${id}`)
         .then((response) => {
           console.log(response);
           const fields = ["name", "email", "phone_no", "DOB"];
@@ -66,7 +66,7 @@ const Form = ({ mode }) => {
       }
     });
 
-    const url = `/api/user/${
+    const url = `${import.meta.env.VITE_APP_URL}/api/user/${
       mode === "edit" ? "update/" + id : "create"
     }`;
     console.log(url);
