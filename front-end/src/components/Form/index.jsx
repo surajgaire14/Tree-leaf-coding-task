@@ -19,6 +19,7 @@ const Form = ({ mode }) => {
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
+  console.log(errors);
 
   // get the country during initial loading of the page
   React.useEffect(() => {
@@ -159,8 +160,14 @@ const Form = ({ mode }) => {
         type="text"
         {...register("phone_no", {
           required: "phone number is a required field",
-          min: 7,
-          max: 10,
+          minLength: {
+            value: 7,
+            message: "minimum 7 character is required",
+          },
+          maxLength: {
+            value: 10,
+            max: "maximum 10 character",
+          },
         })}
         placeholder="Name"
       />
