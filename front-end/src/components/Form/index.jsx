@@ -168,6 +168,7 @@ const Form = ({ mode }) => {
             value: 10,
             max: "maximum 10 character",
           },
+          valueAsNumber: true,
         })}
         placeholder="Name"
       />
