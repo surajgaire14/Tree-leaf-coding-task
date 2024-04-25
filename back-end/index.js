@@ -27,6 +27,8 @@ app
   .use("/uploads",express.static(__dirname + "uploads"))
   .use("/uploads/:filename",(req,res) => {
     const baseUrl = process.env.APP_URL; 
+    // console.log(req.params.filename)
+    // const encodedFilename = encodeURIComponent(req.params.filename);
     const filePath = new URL(`/uploads/${encodeURIComponent(req.params.filename)}`,baseUrl.toString())
     res.sendFile(filePath, (err) => {
       if (err) {

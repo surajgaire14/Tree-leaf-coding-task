@@ -28,7 +28,7 @@ const Users = () => {
   console.log(import.meta.env.VITE_APP_URL);
   const handleUserDelete = async (id) => {
     try {
-      await axios.delete(`${import.meta.env.VITE_APP_URL}}/api/user/${id}`);
+      await axios.delete(`${import.meta.env.VITE_APP_URL}/api/user/${id}`);
       setUsers((currentItems) =>
         currentItems.filter((item) => item._id !== id)
       );
