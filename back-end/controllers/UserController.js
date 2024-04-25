@@ -67,7 +67,9 @@ const UpdateUserById = async (req, res) => {
   const { id } = req.params;
   const fileName = req.file.filename;
   const encodedFilename = encodeURIComponent(fileName);
-  req.body.profilePicture =  `${process.env.APP_URL}` `uploads/${encodedFilename}`
+  console.log(encodedFilename);
+  let imageUrl = process.env.APP_URL + "/uploads/" + encodedFilename
+  req.body.profilePicture = imageUrl
 
   const {address , ...data} = req.body
   try {
