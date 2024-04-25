@@ -23,7 +23,7 @@ const createUser = async (req, res) => {
       phone_no,
       DOB,
       address: savedAddress._id,
-      profilePicture: "http://localhost:5000/uploads/" + encodedFilename,
+      profilePicture: process.env.APP_URL + encodedFilename,
     });
     const data = await user.save();
     return res.json(data);
@@ -66,7 +66,7 @@ const UpdateUserById = async (req, res) => {
   const { id } = req.params;
   const fileName = req.file.filename;
   const encodedFilename = encodeURIComponent(fileName);
-  req.body.profilePicture =  "http://localhost:5000/" `uploads/${encodedFilename}`
+  req.body.profilePicture =  `${process.env.APP_URL}` `uploads/${encodedFilename}`
 
   const {address , ...data} = req.body
   try {
