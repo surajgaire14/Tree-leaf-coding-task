@@ -51,6 +51,7 @@ const Form = ({ mode }) => {
 
   const onSubmit = async (data) => {
     console.log(data);
+    console.log(import.meta.env.APP_URL);
     const formData = new FormData();
     formData.append("profilePicture", file);
 
@@ -64,9 +65,10 @@ const Form = ({ mode }) => {
       }
     });
 
-    const url = `${import.meta.env.APP_URL}/api/user/${
+    const url = `${import.meta.env.VITE_APP_URL}/api/user/${
       mode === "edit" ? "update/" + id : "create"
     }`;
+    console.log(url);
     const method = mode === "edit" ? "put" : "post";
 
     try {
@@ -78,6 +80,7 @@ const Form = ({ mode }) => {
           "Content-Type": "multipart/form-data",
         },
       });
+      console.log(res);
       if (res.status === 200) {
         navigate("/users");
       }

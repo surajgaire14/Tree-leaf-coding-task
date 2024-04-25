@@ -15,7 +15,7 @@ app
   .use(
     cors({
       methods: ["GET", "POST", "PUT", "DELETE"],
-      origin: "https://tree-leaf-coding-task.onrender.com",
+      origin: ["https://tree-leaf-coding-task.onrender.com","http://localhost:5173"],
     })
   )
   .use(express.json())
