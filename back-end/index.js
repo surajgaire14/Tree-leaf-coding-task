@@ -29,7 +29,7 @@ app
     const baseUrl = process.env.APP_URL; 
     // console.log(req.params.filename)
     // const encodedFilename = encodeURIComponent(req.params.filename);
-    const filePath = new URL(`/uploads/${encodeURIComponent(req.params.filename)}`,baseUrl.toString())
+    const filePath = new URL(`uploads/${encodeURIComponent(req.params.filename)}`,baseUrl.toString())
     res.sendFile(filePath, (err) => {
       if (err) {
           console.log('Error sending file:', err);
